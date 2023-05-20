@@ -4,7 +4,6 @@ contract WelcomeToSolidity {
    constructor() public{
    }
    
-   // is adding two integers
    function getResult() public view returns(uint){
       uint a = 1;
       uint b = 14;
