@@ -11,12 +11,18 @@ pragma solidity = 0.5.0;
 contract MovieContract {
 
 mapping (uint => Movie) movie;
+
+mapping (uint => mapping(uin => Movie)) public myMovie;
+
 struct Movie {
     string title;
     string director;
 }
 function addMovie(uint id, string memory title, string memory director) public {
     movie[id] = Movie (title, director);
+}
+function addMyMovie(uint id, string memory title, string memory director) public {
+    myMovie[msg.sender][id] = Movie (title, director);     //msg.sender is used to capture the address of the sender
 }
 
 }
