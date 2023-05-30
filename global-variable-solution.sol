@@ -38,8 +38,11 @@ contract Updated {
 
 contract SimpleStorage {
     
-    uint storedData;
-    
+    uint input;
+    uint difficulty;
+    uint timestamp;
+    uint number;
+
     function set(uint _input) public {
         input = _input;
         difficulty = block.difficulty;
@@ -48,16 +51,16 @@ contract SimpleStorage {
     }
     
     function getInput() public view returns (uint) {
-        return storedData;
+        return input;
     }
     function getDifficulty() public view returns (uint) {
-        return storedData;
+        return difficulty;
     }
     function getTimeStamp() public view returns (uint) {
-        return storedData;
+        return timestamp;
     }
     function getBlockNumber() public view returns (uint) {
-        return storedData;
+        return number;
     }
     
 }
