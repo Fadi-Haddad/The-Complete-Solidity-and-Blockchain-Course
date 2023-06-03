@@ -5,7 +5,7 @@ contract Coin {
     address public minter;
     mapping (address => uint) public balances;
     error insufficientBalance(uint requested, uint available);
-
+    event Sent(address from, address to, uint amount);
     constructor () {
         minter = msg.sender;
     }
@@ -22,8 +22,9 @@ contract Coin {
                 available:balances[msg.sender]
             });
         }
-        
+
         balances[msg.sender]-= amount;
-        receiver += amount;
+        balances[receiver] += amount;
+        emit Sent(msg.sender, receiver, amount);
     }
 }
