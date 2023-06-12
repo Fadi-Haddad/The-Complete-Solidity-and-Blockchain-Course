@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co/C1PM372/att.png" alt="att" heigh="350" width="1400">
+<img src="https://i.ibb.co/C1PM372/att.png" alt="att" heigh="350" width="1400"><br>
 **Disclaimer:**<br>
 This repository contains code snippets created while following "The Complete Solidity Course - Blockchain - Zero to Expert" on Udemy.
 Please note that it is not a comprehensive tutorial or course on Solidity or blockchain development.
