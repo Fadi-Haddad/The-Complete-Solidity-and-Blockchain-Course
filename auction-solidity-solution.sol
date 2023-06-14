@@ -37,3 +37,13 @@ the beneficiary!
 
 Alirght - so this is your mission - good luck and may the defi be with you! 
 */
+
+contract Auction {
+    
+    address payable public beneficiary;
+    uint public auctionEndTime;
+    
+    address public highestBidder;
+    uint public highestbid; 
+    bool ended;
+}
