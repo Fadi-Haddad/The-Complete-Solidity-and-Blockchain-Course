@@ -46,4 +46,7 @@ contract Auction {
     address public highestBidder;
     uint public highestbid; 
     bool ended;
+
+    mapping(address => uint) pendingReturns;
+    
 }
