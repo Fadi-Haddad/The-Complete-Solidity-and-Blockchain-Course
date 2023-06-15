@@ -48,5 +48,8 @@ contract Auction {
     bool ended;
 
     mapping(address => uint) pendingReturns;
-    
+
+    event highestBidIncreased(address bidder, uint amount);
+    event auctionEnded(address winner, uint amount);
+
 }
