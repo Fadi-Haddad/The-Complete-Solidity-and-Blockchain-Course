@@ -52,4 +52,9 @@ contract Auction {
     event highestBidIncreased(address bidder, uint amount);
     event auctionEnded(address winner, uint amount);
 
+    constructor(uint _biddingTime, address payable _beneficiary) {
+        beneficiary = _beneficiary;
+        auctionEndTime = block.timestamp + _biddingTime; 
+}
+
 }
