@@ -56,5 +56,19 @@ contract Auction {
         beneficiary = _beneficiary;
         auctionEndTime = block.timestamp + _biddingTime; 
 }
+    function bid() public payable {
+        
+        if(block.timestamp > auctionEndTime) revert('the auction has ended!');
+        
+        if(msg.value <= highestbid) revert('sorry, the bid is not high enough!');
+        
+        if(highestbid != 0) {
+            pendingReturns[highestBidder] += highestbid;
+        }
+        
+        highestBidder = msg.sender;
+        highestbid = msg.value;
+        emit highestBidIncreased(msg.sender, msg.value);
+    }
 
 }
