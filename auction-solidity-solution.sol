@@ -82,5 +82,14 @@ contract Auction {
     }
     return true;
 }
+    function auctionEnd() public {
+        
+        if(block.timestamp < auctionEndTime) revert('the auction has not ended yet!');
+        if(ended) revert('the auction is already over!');
+        
+         ended = true;
+         emit auctionEnded(highestBidder, highestbid);
+         beneficiary.transfer(highestbid);
+    }
 
 }
