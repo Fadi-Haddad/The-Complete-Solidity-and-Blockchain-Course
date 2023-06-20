@@ -15,3 +15,10 @@ Solidity have certain restrictions on use of a Library. Following are the key ch
 
     A Library cannot be inherited.
 */
+
+library Search{
+
+    function indexOf(uint[]  storage self, uint value) public view returns(uint) {
+        for(uint i=0; i<self.length; i++) if(self[i] == value) return i;
+    }
+}
