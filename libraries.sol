@@ -37,4 +37,14 @@ contract Test {
        uint index = Search.indexOf(data, value); 
        return index;
     }
+/*
+Exercise: 
+1. Copy over the library Search and the contract Test below
+and rename library Search to Search2 and contract Test to Test2. 
+
+2. Using the A for B library pattern assign the new library to an empty array type 
+and
+rewrite the code so that we can run the same search hardcoded this time to the value of 4
+accordingly.  
+*/
 }
