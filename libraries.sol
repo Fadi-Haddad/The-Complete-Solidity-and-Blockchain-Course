@@ -52,5 +52,15 @@ library Search2{
         for(uint i=0; i<self.length; i++) if(self[i] == value) return i;
     }
 }
-
+contract Test2 {
+   // using A (library) for B (another element) 
+    using Search2 for uint[]; 
+    uint[] data;
+    constructor() public {
+        data.push(1);
+        data.push(2);
+        data.push(3);
+        data.push(4);
+        data.push(5);
+    }
 }
