@@ -63,4 +63,10 @@ contract Test2 {
         data.push(4);
         data.push(5);
     }
+    
+    function isValuePresent() external view returns(uint) {
+    uint value = 4;
+    uint index = data.indexOf(value);
+    return index; 
+    }
 }
