@@ -8,6 +8,3 @@ For in-depth learning, it is highly recommended to refer to the original course 
 
 Feel free to explore the code in this repository, but remember that it is intended for personal reference only and not a substitute for professional guidance.
 
-**IF:** you're also studying Solidity or have any questions, feel free to reach out to me! I'd be happy to connect and learn together.
-
-Happy learning!
