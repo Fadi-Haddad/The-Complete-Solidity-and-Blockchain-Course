@@ -17,4 +17,9 @@ contract StorageFactory {
     function sfStore(uint256 _simpleStorageIndex, uint256 _simpleStorageNumber) public {
         simpleStorgeArray[_simpleStorageIndex].store(_simpleStorageNumber);
     }
+    
+    // a function to retrive the saved value on a contract with a specific index
+    function sfGet(uint256 _simpleStorageIndex) public view returns(uint256){
+       return simpleStorgeArray[_simpleStorageIndex].retrieve();
+    }
 }
