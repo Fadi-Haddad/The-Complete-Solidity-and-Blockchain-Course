@@ -5,7 +5,9 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 
 contract FundMe{
     uint minimumUSD = 50*1e18;  // the minimum amount to send in USD,
-                            // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
+                                // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
+
+    address[] public funders // new array to store the list of donators(funders)
 
     function fund() public payable { // payable is added to indicate that this function either sends or receives money
 
@@ -16,7 +18,7 @@ contract FundMe{
         // the address can be found on the chainlink data PRICE FEEDS(docs.chain.link/data-feeds/price-feeds/)
         //address : 0x694AA1769357215DE4FAC081bf1f309aDC325306
         //ABI : a list of all the interactions with the bloackchain (list of function inside a contract)
-        
+        funders.push(msg.sender);
     }
 
     function getPrice() public view returns (uint256){
