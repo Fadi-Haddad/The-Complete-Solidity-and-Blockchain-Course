@@ -9,6 +9,8 @@ contract FundMe{
 
     address[] public funders // new array to store the list of donators(funders)
 
+    mapping(address => uint256) public addressToAmountFunded;
+
     function fund() public payable { // payable is added to indicate that this function either sends or receives money
 
         require(getExchangeRate(msg.value) > minimumUSD, "amount not enough"); // if the sent amount is less than 1e18 Wei, the amount won't be sent
@@ -18,7 +20,10 @@ contract FundMe{
         // the address can be found on the chainlink data PRICE FEEDS(docs.chain.link/data-feeds/price-feeds/)
         //address : 0x694AA1769357215DE4FAC081bf1f309aDC325306
         //ABI : a list of all the interactions with the bloackchain (list of function inside a contract)
-        funders.push(msg.sender);
+
+        funders.push(msg.sender);   //msg.sender is the address of whoever calls the fund function.
+
+        addressToAmountFunded[msg.sender] = msg.sender;  // stores the amount sent with the address of the sender
     }
 
     function getPrice() public view returns (uint256){
