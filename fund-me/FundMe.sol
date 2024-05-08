@@ -2,14 +2,17 @@
 pragma solidity  ^0.8.8;
 
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+// import "./PriceConverter.sol";
 
 contract FundMe{
     uint minimumUSD = 50*1e18;  // the minimum amount to send in USD,
                                 // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
 
-    address[] public funders // new array to store the list of donators(funders)
+    address[] public funders; // new array to store the list of donators(funders)
 
     mapping(address => uint256) public addressToAmountFunded;
+
+    // using PriceConverter for uint256;
 
     function fund() public payable { // payable is added to indicate that this function either sends or receives money
 
@@ -23,10 +26,10 @@ contract FundMe{
 
         funders.push(msg.sender);   //msg.sender is the address of whoever calls the fund function.
 
-        addressToAmountFunded[msg.sender] = msg.sender;  // stores the amount sent with the address of the sender
+        addressToAmountFunded[msg.sender] += msg.value;  // stores the amount sent with the address of the sender
     }
 
-    function getPrice() public view returns (uint256){
+    function getPrice() public view returns (uint256){                          // can be moved to PriceConverter.sol
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306); //create a variable called priceFeed from the AggregatorV3Interface
         (,int price,,,)=priceFeed.latestRoundData();
         return (uint256(price*1e10)); // price is a int256 and should be converted to uint256, also we should multiply price by 1e10 to get
@@ -34,7 +37,7 @@ contract FundMe{
 
     }
 
-    function getExchangeRate(uint256 ethAmount) public view returns(uint256){
+    function getExchangeRate(uint256 ethAmount) public view returns(uint256){  // can be moved to PriceConverter.sol
         uint256 ethPrice = getPrice(); 
         uint256 sentAmountInUSD = (ethPrice * ethAmount) / 1e18;
         return sentAmountInUSD;
