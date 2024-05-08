@@ -17,10 +17,17 @@ contract FundMe{
         //ABI : a list of all the interactions with the bloackchain (list of function inside a contract)
         
     }
+
     function getPrice() public {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306); //create a variable called priceFeed from the AggregatorV3Interface
         (,int price,,,)=priceFeed.latestRoundData();
         return (uint256(price)) // price is a int256 and should be converted to uint256
+    }
+
+    function getExchangeRate(uint256 ethAmount) public view returns(uint256){
+        uint256 ethPrice = getPrice(); 
+        uint256 sentAmountInUSD = (ethPrice * ethAmount) / 1e18;
+        return sentAmountInUSD;
     }
 
     function withdraw() public {}
