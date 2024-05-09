@@ -50,6 +50,13 @@ contract FundMe{
         return sentAmountInUSD;
     }
 
-    function withdraw() public {}
+    function withdraw() public {} // here we have to do three things, clear the senders mapping, clear the funders array, and send the money
+    // to clear the mapping, we can use a for loop:
+    for (uint256 index = 0, index<=funders.length, index ++ ) {
+
+        address funder = funders[index]  // get the address of the sender from the array
+
+        addressToAmountFunded[funder] = 0; // use the address to clear the mapping
+    }
 
 }
