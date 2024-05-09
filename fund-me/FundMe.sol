@@ -12,6 +12,13 @@ contract FundMe{
 
     mapping(address => uint256) public addressToAmountFunded;
 
+    address public owner ;  // address to save the address of the person who deploys the contract
+
+    constructor(){ // a constructor is a function that runs automatically exactly ONCE whenever the contract is deployed.
+
+        owner = msg.sender; 
+    }
+
     // using PriceConverter for uint256;
 
     function fund() public payable { // payable is added to indicate that this function either sends or receives money
