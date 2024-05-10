@@ -58,5 +58,5 @@ contract FundMe{
 
         addressToAmountFunded[funder] = 0; // use the address to clear the mapping
     }
-
+    funders = new address[](0);
 }
