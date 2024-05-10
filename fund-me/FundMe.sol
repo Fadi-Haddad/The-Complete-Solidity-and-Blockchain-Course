@@ -52,11 +52,19 @@ contract FundMe{
 
     function withdraw() public {} // here we have to do three things, clear the senders mapping, clear the funders array, and send the money
     // to clear the mapping, we can use a for loop:
+
+    require(msg.send = owner);  // requiring that the owner is the only person that can withdraw the money.
+
     for (uint256 index = 0, index<=funders.length, index ++ ) {
 
         address funder = funders[index]  // get the address of the sender from the array
 
         addressToAmountFunded[funder] = 0; // use the address to clear the mapping
     }
+
     funders = new address[](0);
+
+    (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+    require(callSuccess, "Call Failed");
+
 }
