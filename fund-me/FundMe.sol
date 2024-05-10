@@ -4,6 +4,8 @@ pragma solidity  ^0.8.8;
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 // import "./PriceConverter.sol";
 
+error NotOwner(); // error used in onlyOwner modifier to save gas by not sending the string with the contract
+
 contract FundMe{
     uint constant MINIMUMUSD = 50*1e18;  // the minimum amount to send in USD, constants are usually CAPITALIZED
                                 // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
@@ -48,8 +50,8 @@ contract FundMe{
     function withdraw() public onlyOwner{ // here we have to do three things, clear the senders mapping, clear the funders array, and send the money
     // to clear the mapping, we can use a for loop:
 
-    // require(msg.send = owner);  // requiring that the owner is the only person that can withdraw the money.
-
+    // require(msg.send = owner);  // requiring that the owner is the only person that can withdraw the money. // replaced with a modifier
+    
     for (uint256 index = 0; index<funders.length; index ++ ) {
 
         address funder = funders[index];  // get the address of the sender from the array
@@ -64,7 +66,8 @@ contract FundMe{
     }
 
     modifier onlyOwner {
-            require(msg.sender == _owner);
+            // require(msg.sender == _owner);
+            if(msg.sender != _owner) {revert NotOwner();}
             _;
         }
 }
