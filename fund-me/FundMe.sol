@@ -80,4 +80,17 @@ contract FundMe{
             if(msg.sender != _owner) {revert NotOwner();}
             _;  // this code tell the compiler to continue the rest of the code starting here.
         }
+
+
+    // if date was sent to the contract with a transaction, the default function to be called will be fallback, if data was empty and there is 
+    // a receive function, the receive function will be called.
+    // if Ether is sent to the contract without any data, the receive function will be called.
+    // If Ether is sent with data, or if no data is sent and there is no receive function, the fallback function will be called.
+    receive () external payable {
+        fund();
+    }
+
+    fallback () external payable{
+        fund();
+    }
 }
