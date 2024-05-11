@@ -8,11 +8,11 @@ error NotOwner(); // error used in onlyOwner modifier to save gas by not sending
 
 contract FundMe{
     uint constant MINIMUMUSD = 50*1e18;  // the minimum amount to send in USD, constants are usually CAPITALIZED
-                                // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
+                                         // should be multiplied by 1e18 to get it to have 18 decimals instead of 0
 
     address public immutable _owner ;  // address to save the address of the person who deploys the contract
 
-    address[] public funders; // new array to store the list of donators(funders)
+    address[] public funders;          // new array to store the list of donators(funders)
 
     mapping(address => uint256) public addressToAmountFunded;
 
@@ -21,12 +21,12 @@ contract FundMe{
     function fund() public payable { // payable is added to indicate that this function either sends or receives money
 
         require(getExchangeRate(msg.value) > MINIMUMUSD, "amount not enough"); // if the sent amount is less than 1e18 Wei, the amount won't be sent
-         // and all the code that comes AFTER the 'require' won't be 'GASED'
-        //First we need a function to convert the amount from USD to wei(ETH)
+        // and all the code that comes AFTER the 'require' won't be 'GASED'
+        // first we need a function to convert the amount from USD to wei(ETH)
         // this function is external and exists on the chain link, in order to call a function on the chainlink, we need the address and the ABI
         // the address can be found on the chainlink data PRICE FEEDS(docs.chain.link/data-feeds/price-feeds/)
         //address : 0x694AA1769357215DE4FAC081bf1f309aDC325306
-        //ABI : a list of all the interactions with the bloackchain (list of function inside a contract)
+        //ABI : a list of all the interactions with the bloackchain (list of functions inside a contract)
 
         funders.push(msg.sender);   //msg.sender is the address of whoever calls the fund function.
 
@@ -48,10 +48,11 @@ contract FundMe{
     }
 
     function withdraw() public onlyOwner{ // here we have to do three things, clear the senders mapping, clear the funders array, and send the money
-    // to clear the mapping, we can use a for loop:
-
+    
     // require(msg.send = owner);  // requiring that the owner is the only person that can withdraw the money. // replaced with a modifier
     
+    // to clear the mapping, we can use a for loop:
+
     for (uint256 index = 0; index<funders.length; index ++ ) {
 
         address funder = funders[index];  // get the address of the sender from the array
@@ -60,7 +61,16 @@ contract FundMe{
     }
 
     funders = new address[](0);
+    //the following code handles sending the money, generally there are three methods for sending the money :
 
+    // payable(msg.sender).transfer(address(this).balance);
+
+    // OR :
+
+    // bool sent_status = payable(msg.sender).send(address(this).balance);
+    // require(sent_status ,"Sending fund failed");
+
+    // OR:
     (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
     require(callSuccess, "Call Failed");
     }
@@ -68,6 +78,6 @@ contract FundMe{
     modifier onlyOwner {
             // require(msg.sender == _owner);
             if(msg.sender != _owner) {revert NotOwner();}
-            _;
+            _;  // this code tell the compiler to continue the rest of the code starting here.
         }
 }
